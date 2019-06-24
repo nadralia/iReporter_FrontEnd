@@ -5,7 +5,8 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
     filename: 'index.bundle.js',
-    path: path.resolve('./dist')
+    path: path.resolve('./dist'),
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -46,6 +47,11 @@ module.exports = {
          use: "file-loader"
        },
     ]
+  },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: path.join(__dirname, '../'),
+    compress: true
   },
   resolve: {
     alias: {

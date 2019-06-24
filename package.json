@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "eslint-loader": "^2.1.2",
-    "jest-css-modules-transform": "^2.3.0"
+    "jest-css-modules-transform": "^2.3.0",
+    "react-router-dom": "^5.0.1"
   }
 }

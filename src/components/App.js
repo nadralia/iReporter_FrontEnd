@@ -1,18 +1,29 @@
 // import react libraries
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
 // import components
-import Navbar from '../components/Layouts/Navbar';
-import Footer from '../components/Layouts/Footer';
-import Landing from '../components/Layouts/Landing';
+import Navbar from './Layouts/Navbar';
+import Footer from './Layouts/Footer';
+import Landing from './Layouts/Landing';
+import Register from './Auth/Register';
+import Login from './Auth/Login';
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <Navbar />
-                <Landing />
-                <Footer />
-            </div>
+            <Router>
+
+                <div>
+                    <Navbar />
+                    <Switch>
+                        <Route exact={true} path="/" component={Landing} />
+                        <Route exact={true} path="/register" component={Register} />
+                        <Route exact={true} path="/login" component={Login} />
+                    </Switch>
+                    <Footer />
+                </div>
+                
+            </Router>
         );
     }
 }
