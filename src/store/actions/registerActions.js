@@ -30,7 +30,7 @@ const registerError = resp => ({
 */
 export const registerActionCreator = (userData, history) => dispatch => {
   axios
-    .post('http://127.0.0.1:5000/api/v2/auth/signup', userData)
+    .post('https://dbireporter.herokuapp.com/api/v2/auth/signup', userData)
     .then((resp) => {
       setTimeout(()=>{
         toast.success(resp.data.data[0]['message']);

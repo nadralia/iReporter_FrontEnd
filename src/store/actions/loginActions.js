@@ -37,12 +37,16 @@ const loginError = resp => ({
 * @param {object} profile user info
 * using the put method of http we upload user info
 */
-export const loginActionCreator = (loginData) => dispatch => {
+export const loginActionCreator = (loginData, history) => dispatch => {
   axios
-    .post('http://127.0.0.1:5000/api/v2/auth/login', loginData)
+    .post('https://dbireporter.herokuapp.com/api/v2/auth/login', loginData)
     .then((response) => {
-        toast.success(response.data.data[0]['message']);
+        setTimeout(()=>{
+            toast.success(response.data.data[0]['message']);
+          }, 4000)
         dispatch(loginSuccess(response.data));
+        sessionStorage.setItem("Token", response.data.data[0]['token']);
+        history.push('/create')
     })
     .catch((error)=> {
       return dispatch(loginError(error));

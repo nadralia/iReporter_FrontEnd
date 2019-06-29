@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { withRouter } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 // import actions
 import { loginActionCreator } from '../../store/actions/loginActions';
@@ -30,11 +30,12 @@ class Login extends Component {
       onSubmit = (event) => {
         event.preventDefault();
         const { username, password} = this.state;
+        const { history } = this.props;
         const newUser = {
           username,
           password
         };
-        this.props.loginActionCreator(newUser);
+        this.props.loginActionCreator(newUser, history);
       };
     render() {
         return (
@@ -63,6 +64,7 @@ class Login extends Component {
                                             name="username" 
                                             id="username" 
                                             className="login-input" 
+                                            defaultValue="username"
                                             onChange={this.onChange} 
                                         />
                                     </div>
@@ -71,6 +73,7 @@ class Login extends Component {
                                             type="password" 
                                             name="password" 
                                             id="password" 
+                                            defaultValue="password"
                                             className="login-input" 
                                             onChange={this.onChange} 
                                         />
@@ -100,6 +103,7 @@ class Login extends Component {
 Login.propTypes = {
     loginActionCreator: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) =>({
@@ -107,4 +111,4 @@ const mapStateToProps = (state) =>({
     token: state.auth.token
 })
 
-export default connect(mapStateToProps,{loginActionCreator})(Login);
+export default  withRouter(connect(mapStateToProps,{loginActionCreator})(Login));
