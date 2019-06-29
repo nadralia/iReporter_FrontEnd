@@ -1,5 +1,5 @@
 module.exports = {
-    roots: ['<rootDir>/test'],
+    roots: ['<rootDir>/src'],
     setupFiles: ['./test/enzyme.setup.js'],
     testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
     snapshotSerializers: ['enzyme-to-json/serializer'],
