@@ -39,7 +39,7 @@ export const registerActionCreator = (userData, history) => dispatch => {
     
     })
     .catch((error)=> {
-      dispatch({type: 'STOP_LOADING'})
-      return dispatch(registerError(error));
+      toast.error(error.response['data']['message']);
+      dispatch(registerError(error.response['data']['message']));
     });
 };

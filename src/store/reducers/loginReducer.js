@@ -3,6 +3,7 @@
 import {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
+    LOG_OUT
 } from '../actionTypes/loginActionTypes';
 
 /**
@@ -16,7 +17,9 @@ const initialState =
     loginSuccess: '', 
     loginError: '',
     token: '',
-    user:{}
+    user:{
+      username: sessionStorage.getItem('username')
+    }
 }
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -34,6 +37,14 @@ const loginReducer = (state = initialState, action) => {
         loginError: action.payload,
         
       };
+
+      case LOG_OUT:
+      return {
+        user:{
+          username:'',
+        }
+
+      }
 
     default:
       return state;

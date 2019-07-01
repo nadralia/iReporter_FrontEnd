@@ -6,6 +6,7 @@ import axios from 'axios';
 import {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
+    LOG_OUT,
 } from '../actionTypes/loginActionTypes';
 import { toast } from 'react-toastify';
 
@@ -30,6 +31,10 @@ const loginError = resp => ({
   payload: resp,
 });
 
+const logout = () => ({
+  type: LOG_OUT,
+});
+
 /**
 * action creator for update profile request that takes in profile object and username
 * as parameters and dispatch as a function
@@ -41,14 +46,19 @@ export const loginActionCreator = (loginData, history) => dispatch => {
   axios
     .post('https://dbireporter.herokuapp.com/api/v2/auth/login', loginData)
     .then((response) => {
-        setTimeout(()=>{
-            toast.success(response.data.data[0]['message']);
-          }, 4000)
         dispatch(loginSuccess(response.data));
         sessionStorage.setItem("Token", response.data.data[0]['token']);
-        history.push('/create')
+        sessionStorage.setItem("username", response.data.data[0]['user'].username);
+        history.push('/incident/reports')
     })
     .catch((error)=> {
-      return dispatch(loginError(error));
+      dispatch(loginError(error.response['data']['message']));
+      toast.error(error.response['data']['message']);
     });
+};
+
+export const logoutUser = () => (dispatch) => {
+  sessionStorage.removeItem('Token');
+  sessionStorage.removeItem('username');
+  return dispatch(logout());
 };
