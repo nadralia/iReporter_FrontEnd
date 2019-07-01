@@ -30,7 +30,7 @@ const registerError = resp => ({
 */
 export const registerActionCreator = (userData, history) => dispatch => {
   axios
-    .post('https://dbireporter.herokuapp.com/api/v2/auth/signup', userData)
+    .post('https://frontend-ireporter.herokuapp.com/api/v2/auth/signup', userData)
     .then((resp) => {
       setTimeout(()=>{
         toast.success(resp.data.data[0]['message']);
@@ -39,7 +39,7 @@ export const registerActionCreator = (userData, history) => dispatch => {
     
     })
     .catch((error)=> {
-      dispatch({type: 'STOP_LOADING'})
-      return dispatch(registerError(error));
+      dispatch(registerError(error.response['data']['message']));
+      toast.error(error.response['data']['message']);
     });
 };

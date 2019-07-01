@@ -8,6 +8,7 @@ import Landing from './Layouts/Landing';
 import Register from './Auth/Register';
 import Login from './Auth/Login';
 import CreateIncident from './Incident/index';
+import PrivateRoute from '../routers/PrivateRoute';
 
 class App extends Component {
     render() {
@@ -20,6 +21,7 @@ class App extends Component {
                         <Route exact={true} path="/" component={Landing} />
                         <Route exact={true} path="/register" component={Register} />
                         <Route exact={true} path="/login" component={Login} />
+                        <PrivateRoute path="/create/incident" component={CreateIncident}  />
                         <Route exact={true} path="/create" component={CreateIncident} />
                     </Switch>
                     <Footer />

@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 //import styles
 import '../../assets/static/css/create.css';
 
 class CreateIncident extends Component {
+
     render() {
         return (
             <div>
@@ -63,4 +65,11 @@ class CreateIncident extends Component {
     }
 }
 
-export default CreateIncident;
+CreateIncident.propTypes = {
+    user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) =>({
+    user: state.auth.user,
+})
+export default connect(mapStateToProps,{})(CreateIncident);

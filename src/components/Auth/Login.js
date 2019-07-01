@@ -38,6 +38,7 @@ class Login extends Component {
         this.props.loginActionCreator(newUser, history);
       };
     render() {
+        const { username, password } = this.state;
         return (
             <div>
                 <ToastContainer autoClose={4000} />
@@ -64,8 +65,9 @@ class Login extends Component {
                                             name="username" 
                                             id="username" 
                                             className="login-input" 
-                                            defaultValue="username"
-                                            onChange={this.onChange} 
+                                            value={username}
+                                            onChange={this.onChange}
+                                            placeholder="Username"
                                         />
                                     </div>
                                     <div className="input-field">
@@ -73,9 +75,10 @@ class Login extends Component {
                                             type="password" 
                                             name="password" 
                                             id="password" 
-                                            defaultValue="password"
                                             className="login-input" 
-                                            onChange={this.onChange} 
+                                            value={password}
+                                            onChange={this.onChange}
+                                            placeholder="Password"
                                         />
                                     </div>
                                     <div className="forgot-password">
@@ -106,9 +109,10 @@ Login.propTypes = {
     history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) =>({
+export const mapStateToProps = (state) =>({
     user: state.auth.user,
-    token: state.auth.token
+    token: state.auth.token,
+    error: state.auth.loginError
 })
 
 export default  withRouter(connect(mapStateToProps,{loginActionCreator})(Login));

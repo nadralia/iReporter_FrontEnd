@@ -42,14 +42,14 @@ class Register extends Component {
   };
 
   render() {
+    const { error } = this.props;
     return (
         <div>
             <ToastContainer autoClose={4000} />
             <section className="signup" >
                 <div className="signup-wrapper">
                     <div className="form-group-title">
-                        <span className="error" id="error" />
-                        <span className="success" id="success" />
+                        <span className="error" id="error"> {error} </span>
                     </div>
                     <form onSubmit={this.onSubmit} className="signup-form">
                         <div className="signup-flexbox">
@@ -115,11 +115,15 @@ class Register extends Component {
 
 Register.propTypes = {
   registerActionCreator: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  error: PropTypes.string,
+};
+
+Register.defaultProps = {
+  error: '',
 };
 const mapStateToProps = (state) => ({
-  user: state.user,
+  error: state.user.signupError
 });
 
 export default withRouter(connect(mapStateToProps, { registerActionCreator })(Register));
