@@ -11,7 +11,7 @@ import '../../assets/static/css/main.css';
 
 class Navbar extends Component {
 
-    logout = (e) => {
+    handleLogout = (e) => {
         e.preventDefault();
         const { logout } = this.props;
         logout();
@@ -33,10 +33,13 @@ class Navbar extends Component {
                     )}
                     {user.username && (
                     <div className="nav">
+                        <Link className="login-link" to="/create/incident">Create Incident</Link>
+                        <Link className="login-link" to="/incident/reports">My Incident Reports</Link>
                         <Link className="login-link" to="/profile">{user.username}</Link>
                         <Link 
                             className="signup-link" 
                             to="/login"
+                            onClick={this.handleLogout}
                         >
                         Log Out
                         </Link>

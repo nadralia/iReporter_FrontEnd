@@ -6,6 +6,7 @@ import axios from 'axios';
 import {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
+    LOG_OUT,
 } from '../actionTypes/loginActionTypes';
 import { toast } from 'react-toastify';
 
@@ -31,7 +32,7 @@ const loginError = resp => ({
 });
 
 const logout = () => ({
-  type: "LOGOUT",
+  type: LOG_OUT,
 });
 
 /**
@@ -43,11 +44,12 @@ const logout = () => ({
 */
 export const loginActionCreator = (loginData, history) => dispatch => {
   axios
-    .post('https://frontend-ireporter.herokuapp.com/api/v2/auth/login', loginData)
+    .post('https://dbireporter.herokuapp.com/api/v2/auth/login', loginData)
     .then((response) => {
         dispatch(loginSuccess(response.data));
         sessionStorage.setItem("Token", response.data.data[0]['token']);
-        history.push('/create/incident')
+        sessionStorage.setItem("username", response.data.data[0]['user'].username);
+        history.push('/incident/reports')
     })
     .catch((error)=> {
       dispatch(loginError(error.response['data']['message']));
@@ -57,5 +59,6 @@ export const loginActionCreator = (loginData, history) => dispatch => {
 
 export const logoutUser = () => (dispatch) => {
   sessionStorage.removeItem('Token');
+  sessionStorage.removeItem('username');
   return dispatch(logout());
 };
